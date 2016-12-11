@@ -1,0 +1,31 @@
+// Config version
+version : 1
+
+// Default configuration
+config : {
+	// ping limit - round trip time in milliseconds
+	limit: 350
+
+	// how much samples of ping data we will use to decide if the player is above the limit or not
+	samples: 30
+
+	// Percentage. The tolerance we should have considering the total number of ping above the limit.
+	// With a tolerance of 20%, all occurences of ping above the limit will have 5x the weight of a ping below the limit.
+	tolerance: 10
+
+	//debug
+	debug: 1
+
+	//When 0, DON'T kick the session host
+	kickHost: 0
+
+	//The whitelist should contain the steamid (like 7656XXXXXXXXXXXXX) of the player who will never be kicked
+	//The numbers should be inside brackets separated by comma:
+	//  whitellist: [
+	//    7656XXXXXXXXXXXXX,
+	//    7656XXXXXXXXXXXXX
+	//  ]
+        whitelist: [
+        ]
+
+}
