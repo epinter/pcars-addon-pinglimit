@@ -23,7 +23,9 @@ local config = addon_storage.config
 local VERSION='0.8.0'
 local to_kick = {}
 local memberPing = {}
+local memberNotified = {}
 local kickDelay = 7
+local notifyInterval = 5
 local tolerance = (100/config.tolerance)
 local logTag = "PINGLIMITADDON: "
 local logPrioDebug = "DEBUG"
@@ -143,6 +145,10 @@ local function callback_pinglimit( callback, ... )
 				if member.attributes and member.attributes.Ping and member.attributes.Ping > config.limit then
 					pinglimit_log( member.name.." " .. field .. " = " .. tostring( member.attributes[ field ] ), logPrioDebug)
 					memberPing[ refId ] =  memberPing[ refId ] + ((member.attributes.Ping/config.limit)*(tolerance))
+					if not memberNotified[ refId ] or (memberNotified[ refId ] and memberNotified[ refId ] < (GetServerUptimeMs() - (notifyInterval*1000))) then
+						pinglimit_sendChatToMember(refId, "WARN your PING is high: "..member.attributes.Ping)
+						memberNotified[ refId ] = GetServerUptimeMs()
+					end
 				else
 					if  memberPing[ refId ] > 0 then
 						memberPing[ refId ] =  memberPing[ refId ] - 1
@@ -156,7 +162,7 @@ local function callback_pinglimit( callback, ... )
 				and not pinglimit_isSteamUserWhitelisted(member.steamid)
 				and ((config.kickHost==1 and member.host) or not member.host) then
 			to_kick [ refId ] = (GetServerUptimeMs() + (kickDelay*1000))
-			pinglimit_sendChatToAll(refId, "Ping: KICKING "..member.name..", >"..config.limit)
+			pinglimit_sendChatToAll(refId, "Ping: KICK "..member.name..", >"..config.limit)
 		end
 	end
 	if callback == Callback.ServerStateChanged then
