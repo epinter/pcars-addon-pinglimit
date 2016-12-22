@@ -84,6 +84,12 @@ local function pinglimit_sendChatToMember( refid, msg )
 	SendChatToMember(refid,msg)
 end
 
+local function pinglimit_sendChatToAll( msg )
+	pinglimit_log(msg)
+	SendChatToAll(msg)
+end
+
+
 local function pinglimit_isSteamUserWhitelisted ( steamId )
 	for k,v in pairs ( config.whitelist ) do
 		if (""..v) == steamId then
@@ -150,7 +156,7 @@ local function callback_pinglimit( callback, ... )
 				and not pinglimit_isSteamUserWhitelisted(member.steamid)
 				and ((config.kickHost==1 and member.host) or not member.host) then
 			to_kick [ refId ] = (GetServerUptimeMs() + (kickDelay*1000))
-			pinglimit_sendChatToMember(refId, "KICK - your ping is too high, > "..config.limit)
+			pinglimit_sendChatToAll(refId, "Ping: KICKING "..member.name..", >"..config.limit)
 		end
 	end
 	if callback == Callback.ServerStateChanged then
