@@ -20,7 +20,7 @@ Copyright (C) 2016  Emerson Pinter <dev@pinter.com.br>
 local addon_storage = ...
 local config = addon_storage.config
 
-local VERSION='0.7.0'
+local VERSION='0.8.0'
 local to_kick = {}
 local memberPing = {}
 local kickDelay = 7
@@ -98,7 +98,7 @@ local function pinglimit_tick()
 	for refId, time in pairs( to_kick ) do
 		if now >= time then
 			pinglimit_log( "Kicking " .. refId )
-			KickMember( refId, 60 )
+			KickMember( refId, config.tempBanTime )
 			to_kick[ refId ] = nil
 		end
 	end
@@ -116,7 +116,7 @@ local function callback_pinglimit( callback, ... )
 		return
 	end
 
-	if config.kickHost == nil then
+	if config.kickHost == nil or config.tempBanTime == nil or config.tempBanTime < 60 then
 		pinglimit_log("Invalid config. Addon disabled", logPrioError)
 		do return end
 	end
@@ -163,6 +163,7 @@ local function callback_pinglimit( callback, ... )
 			pinglimit_log("  tolerance = " .. config.tolerance)
 			pinglimit_log("  kickHost = " .. config.kickHost)
 			pinglimit_log("  debug = " .. config.debug)
+			pinglimit_log("  tempBanTime = " .. config.tempBanTime)
 			for k,v in pairs ( config.whitelist ) do
 				pinglimit_log("  steamid whitelisted: "..v)
 			end

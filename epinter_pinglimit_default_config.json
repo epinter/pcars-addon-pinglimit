@@ -19,6 +19,10 @@ config : {
 	//When 0, DON'T kick the session host
 	kickHost: 0
 
+	//Time in seconds to keep a player banned after kick.
+	//10 minutes is recommended, the server seems to ignore something like 1 or 2 minutes.
+	tempBanTime: 600
+
 	//The whitelist should contain the steamid (like 7656XXXXXXXXXXXXX) of the player who will never be kicked
 	//The numbers should be inside brackets separated by comma:
 	//  whitellist: [

@@ -26,6 +26,10 @@ debug: 0
 
 //When 0, DON'T kick the session host
 kickHost: 0
+
+//Time in seconds to keep a player banned after kick.
+//10 minutes is recommended, the server seems to ignore something like 1 or 2 minutes.
+tempBanTime: 600
 ```
 
 Installation
