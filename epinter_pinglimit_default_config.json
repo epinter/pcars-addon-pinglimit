@@ -7,7 +7,7 @@ config : {
 	limit: 350
 
 	// how much samples of ping data we will use to decide if the player is above the limit or not
-	samples: 30
+	samples: 45
 
 	// Percentage. The tolerance we should have considering the total number of ping above the limit.
 	// With a tolerance of 20%, all occurences of ping above the limit will have 5x the weight of a ping below the limit.
