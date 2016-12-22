@@ -111,7 +111,7 @@ local function isEveryoneHighPing()
                 end
         end
 
-        if countOverLimit >= (countTotal-1) then
+        if countTotal > 0 and countOverLimit > 0 and countOverLimit >= (countTotal-1) then
                 return true
         end
         return false
