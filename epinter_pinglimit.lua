@@ -141,7 +141,7 @@ local function callback_pinglimit( callback, ... )
 	end
 
 	if config.kickHost == nil or config.tempBanTime == nil or config.tempBanTime < 60 then
-		pinglimit_log("Invalid config. Addon disabled", logPrioError)
+		pinglimit_log("Invalid config, addon disabled. Remove or fix the config file (in lua_config directory).", logPrioError)
 		do return end
 	end
 	if config.tolerance < 0 or config.tolerance > 99 then
@@ -190,7 +190,7 @@ local function callback_pinglimit( callback, ... )
 		local oldState, newState = ...
 		pinglimit_log( "Server state changed from " .. oldState .. " to " .. newState,logPrioDebug )
 		if oldState == "Starting" and newState == "Running" then
-			pinglimit_log("Pinglimit addon config loaded:")
+			pinglimit_log("Pinglimit addon v"..VERSION..", config loaded:")
 			pinglimit_log("  limit = " .. config.limit)
 			pinglimit_log("  samples = " .. config.samples)
 			pinglimit_log("  tolerance = " .. config.tolerance)
