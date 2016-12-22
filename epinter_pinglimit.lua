@@ -101,6 +101,22 @@ local function pinglimit_isSteamUserWhitelisted ( steamId )
 	return false
 end
 
+local function isEveryoneHighPing()
+        local countOverLimit = 0
+        local countTotal = 0
+        for k,v in pairs ( memberPing ) do
+                countTotal = countTotal + 1
+                if v > config.limit then
+                        countOverLimit = countOverLimit + 1
+                end
+        end
+
+        if countOverLimit >= (countTotal-1) then
+                return true
+        end
+        return false
+end
+
 local function pinglimit_tick()
 	local now = GetServerUptimeMs()
 	for refId, time in pairs( to_kick ) do
@@ -155,6 +171,11 @@ local function callback_pinglimit( callback, ... )
 					end
 				end
 			end
+		end
+
+		if isEveryoneHighPing() then
+			pinglimit_log("EVERYBODY HAS HIGH PING!!", logPrioDebug)
+			memberPing = {}
 		end
 
 		if  memberPing[ refId ] and memberPing[ refId ] > (config.samples * tolerance)
