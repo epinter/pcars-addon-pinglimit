@@ -205,6 +205,9 @@ local function callback_pinglimit( callback, ... )
 	if callback == Callback.EventLogged then
 		local event = ...
 		if ( event.type == "Session" ) and ( event.name == "StateChanged" ) then
+			if ( event.attributes.PreviousState ~= "None" ) and ( event.attributes.NewState == "Lobby" ) then
+				pinglimit_send_motd_to()
+			end
 			if ( event.attributes.PreviousState ~= "None" ) and ( event.attributes.NewState == "Race" or  event.attributes.NewState == "Lobby") then
 				memberPing = {}
 			end
