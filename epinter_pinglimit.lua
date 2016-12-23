@@ -20,7 +20,9 @@ Copyright (C) 2016  Emerson Pinter <dev@pinter.com.br>
 local addon_storage = ...
 local config = addon_storage.config
 
-local VERSION='0.9.0'
+local revision=0
+local major,minor=GetAddonVersion()
+local VERSION=string.format("%d.%d.%d",major,minor,revision)
 local to_kick = {}
 local memberPing = {}
 local memberNotified = {}
