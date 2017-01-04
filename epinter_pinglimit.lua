@@ -185,7 +185,7 @@ local function callback_pinglimit( callback, ... )
 				and not pinglimit_isSteamUserWhitelisted(member.steamid)
 				and ((config.kickHost==1 and member.host) or not member.host) then
 			to_kick [ refId ] = (GetServerUptimeMs() + (kickDelay*1000))
-			pinglimit_sendChatToAll("Ping KICK "..member.name..", >"..config.limit)
+			pinglimit_sendChatToAll("PING KICK "..member.name..", >"..config.limit)
 		end
 	end
 	if callback == Callback.ServerStateChanged then
