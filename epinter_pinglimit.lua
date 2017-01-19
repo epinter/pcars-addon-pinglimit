@@ -20,7 +20,7 @@ Copyright (C) 2016  Emerson Pinter <dev@pinter.com.br>
 local addon_storage = ...
 local config = addon_storage.config
 
-local revision=2
+local revision=5
 local major,minor=GetAddonVersion()
 local VERSION=string.format("%d.%d.%d",major,minor,revision)
 local to_kick = {}
@@ -142,7 +142,7 @@ local function callback_pinglimit( callback, ... )
 		return
 	end
 
-	if config.kickHost == nil or config.tempBanTime == nil or config.tempBanTime < 60 then
+	if config.kickHost == nil or config.tempBanTime == nil or config.tempBanTime < 1 then
 		pinglimit_log("Invalid config, addon disabled. Remove or fix the config file (in lua_config directory).", logPrioError)
 		do return end
 	end
